@@ -34,9 +34,4 @@ You can customize the simulation by modifying the following parameters in the `m
 *   `survivalRule`: Define the conditions for cell survival based on the number of neighboring cells.
 *   `birthRule`: Define the conditions for cell birth based on the number of neighboring cells.
 
-Additionally, you can modify the predefined patterns or add new patterns in the `applyPatterns` function to explore different initial configurations.
-
-License
--------
-
-This project is licensed under the MIT License. Feel free to use, modify, and distribute the code as per the terms of the license.
+Additionally, you can modify the predefined patterns or add new patterns in the `applyPatterns` function to explore different initial configurations
