@@ -6,6 +6,8 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"strconv"
+	"strings"
 	"time"
 
 	"golang.org/x/term"
@@ -151,31 +153,68 @@ var gliderGunPattern = [][]Cell{
 	{false, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
 }
 
+type RuleFunc func(int) bool
+
+func getUserInput() string {
+	var input string
+	fmt.Scanln(&input)
+	return input
+}
+
+func parseRuleFunc(ruleInput string) RuleFunc {
+	return func(neighbors int) bool {
+		for _, n := range parseIntSlice(ruleInput) {
+			if neighbors == n {
+				return true
+			}
+		}
+		return false
+	}
+}
+
+func parseIntSlice(input string) []int {
+	var result []int
+	for _, s := range strings.Split(input, "|") {
+		if s != "" {
+			n, err := strconv.Atoi(s)
+			if err == nil {
+				result = append(result, n)
+			}
+		}
+	}
+	return result
+}
+
 func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	width, _ := getTerminalSize()
 	universeWidth = width
 
-	density := 0.3
-	universe := newUniverse(density)
+	universe := newUniverse(0.3)
 
 	survivalRule := func(neighbors int) bool {
 		return neighbors == 2 || neighbors == 3
 	}
+
 	birthRule := func(neighbors int) bool {
 		return neighbors == 3
 	}
+
+	fmt.Println("Enter survival rule (e.g., '2|3' for the standard rule):")
+	survivalRuleInput := getUserInput()
+	survivalRule = parseRuleFunc(survivalRuleInput)
+
+	fmt.Println("Enter birth rule (e.g., '3' for the standard rule):")
+	birthRuleInput := getUserInput()
+	birthRule = parseRuleFunc(birthRuleInput)
 
 	applyPatterns(&universe)
 
 	for {
 		clearScreen()
-
 		printUniverse(&universe)
-
 		time.Sleep(100 * time.Millisecond)
-
 		universe = universe.next(survivalRule, birthRule)
 	}
 }
