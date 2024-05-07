@@ -100,58 +100,58 @@ func getTerminalSize() (int, int) {
 	return width, height
 }
 
-func applyPatterns(u *Universe) {
-	patterns := []struct {
-		x, y    int
-		pattern [][]Cell
-	}{
-		{x: universeWidth / 4, y: universeHeight / 4, pattern: gliderPattern},
-		{x: 3 * universeWidth / 4, y: universeHeight / 4, pattern: pentominoPattern},
-		{x: universeWidth / 4, y: 3 * universeHeight / 4, pattern: spaceshipPattern},
-		{x: 3 * universeWidth / 4, y: 3 * universeHeight / 4, pattern: gliderGunPattern},
-	}
+// func applyPatterns(u *Universe) {
+// 	patterns := []struct {
+// 		x, y    int
+// 		pattern [][]Cell
+// 	}{
+// 		{x: universeWidth / 4, y: universeHeight / 4, pattern: gliderPattern},
+// 		{x: 3 * universeWidth / 4, y: universeHeight / 4, pattern: pentominoPattern},
+// 		{x: universeWidth / 4, y: 3 * universeHeight / 4, pattern: spaceshipPattern},
+// 		{x: 3 * universeWidth / 4, y: 3 * universeHeight / 4, pattern: gliderGunPattern},
+// 	}
 
-	for _, p := range patterns {
-		for i := 0; i < len(p.pattern); i++ {
-			for j := 0; j < len(p.pattern[i]); j++ {
-				row := (p.y + i) % universeHeight
-				col := (p.x + j) % universeWidth
-				(*u)[row][col] = p.pattern[i][j]
-			}
-		}
-	}
-}
+// 	for _, p := range patterns {
+// 		for i := 0; i < len(p.pattern); i++ {
+// 			for j := 0; j < len(p.pattern[i]); j++ {
+// 				row := (p.y + i) % universeHeight
+// 				col := (p.x + j) % universeWidth
+// 				(*u)[row][col] = p.pattern[i][j]
+// 			}
+// 		}
+// 	}
+// }
 
-var gliderPattern = [][]Cell{
-	{false, true, false},
-	{false, false, true},
-	{true, true, true},
-}
+// var gliderPattern = [][]Cell{
+// 	{false, true, false},
+// 	{false, false, true},
+// 	{true, true, true},
+// }
 
-var pentominoPattern = [][]Cell{
-	{false, true, true},
-	{true, true, false},
-	{false, true, false},
-}
+// var pentominoPattern = [][]Cell{
+// 	{false, true, true},
+// 	{true, true, false},
+// 	{false, true, false},
+// }
 
-var spaceshipPattern = [][]Cell{
-	{false, false, true, true, false},
-	{true, true, false, true, true},
-	{true, true, true, true, false},
-	{false, true, true, false, false},
-}
+// var spaceshipPattern = [][]Cell{
+// 	{false, false, true, true, false},
+// 	{true, true, false, true, true},
+// 	{true, true, true, true, false},
+// 	{false, true, true, false, false},
+// }
 
-var gliderGunPattern = [][]Cell{
-	{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false},
-	{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, false, false, false, false},
-	{false, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, true, true},
-	{false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, true, false, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, true, true},
-	{true, true, false, false, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-	{true, true, false, false, false, false, false, false, false, false, true, false, false, false, true, false, true, true, false, false, false, false, true, false, true, false, false, false, false, false, false, false, false, false, false, false},
-	{false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false},
-	{false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-	{false, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
-}
+// var gliderGunPattern = [][]Cell{
+// 	{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false},
+// 	{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, false, false, false, false},
+// 	{false, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, true, true},
+// 	{false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, true, false, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, true, true},
+// 	{true, true, false, false, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+// 	{true, true, false, false, false, false, false, false, false, false, true, false, false, false, true, false, true, true, false, false, false, false, true, false, true, false, false, false, false, false, false, false, false, false, false, false},
+// 	{false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false},
+// 	{false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+// 	{false, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+// }
 
 type RuleFunc func(int) bool
 
@@ -194,7 +194,7 @@ func main() {
 	universe := newUniverse(0.3)
 
 	survivalRule := func(neighbors int) bool {
-		return neighbors == 2 || neighbors == 3
+		return neighbors == 2 || neighbors == 3 // we don't use the result anyways
 	}
 
 	birthRule := func(neighbors int) bool {
@@ -209,8 +209,7 @@ func main() {
 	birthRuleInput := getUserInput()
 	birthRule = parseRuleFunc(birthRuleInput)
 
-	applyPatterns(&universe)
-
+	// applyPatterns(&universe)
 	for {
 		clearScreen()
 		printUniverse(&universe)
